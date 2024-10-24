@@ -1,9 +1,14 @@
 # PPE_Final
  project web final pour BTS sio du cour de jeudi MR_shapeche
 william et yvanna
-
--chaier de charge -> william
--wire frame -> william
--use case -> Yvanna
--mcd ->  Yvanna
--beta corne ->Yvanna
+ _______________________________________________________________________| 
+ |-     chaier de charge           ->  william                          |
+ |______________________________________________________________________|
+ |-     wire frame                 ->  william                          |
+ |______________________________________________________________________|
+ |-     use case                   ->  Yvanna                           |
+ |______________________________________________________________________|
+ |-     mcd                        ->  Yvanna                           |
+ |______________________________________________________________________|
+ |-     beta corne                 ->  Yvanna                           |
+ |______________________________________________________________________|
