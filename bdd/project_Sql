@@ -1,0 +1,76 @@
+-- Créer la base de données 'hotel'
+CREATE DATABASE IF NOT EXISTS hotel;
+USE hotel;
+
+-- Table utilisateurs
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table chambres
+CREATE TABLE chambres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(100) NOT NULL,  -- type de chambre (single, double, etc.)
+    description TEXT,
+    prix_nuit DECIMAL(10, 2) NOT NULL,
+    image LONGBLOB,  -- Image de la chambre encodée en base64
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table voitures
+CREATE TABLE voitures (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    modele VARCHAR(100) NOT NULL,
+    marque VARCHAR(100) NOT NULL,
+    prix_jour DECIMAL(10, 2) NOT NULL,
+    image LONGBLOB,  -- Image de la voiture encodée en base64
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table réservations de chambres
+CREATE TABLE reservations_chambre (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    chambre_id INT NOT NULL,
+    checkin_date DATE NOT NULL,
+    checkout_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (chambre_id) REFERENCES chambres(id)
+);
+
+-- Table réservations de voitures
+CREATE TABLE reservations_voiture (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    voiture_id INT NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (voiture_id) REFERENCES voitures(id)
+);
+
+-- Index pour améliorer les performances de recherche
+CREATE INDEX idx_reservations_chambre_dates ON reservations_chambre (checkin_date, checkout_date);
+CREATE INDEX idx_reservations_voiture_dates ON reservations_voiture (date_debut, date_fin);
+
+-- Insertion de données exemple pour tester
+INSERT INTO users (nom, prenom, email, password) VALUES
+('Dupont', 'Jean', 'jean.dupont@example.com', 'password_hash'),
+('Martin', 'Sophie', 'sophie.martin@example.com', 'password_hash');
+
+INSERT INTO chambres (type, description, prix_nuit) VALUES
+('Single', 'Chambre simple avec lit simple', 70.00),
+('Double', 'Chambre double avec lit queen-size', 120.00),
+('Suite', 'Suite de luxe avec vue sur la mer', 300.00);
+
+INSERT INTO voitures (modele, marque, prix_jour) VALUES
+('Model S', 'Tesla', 150.00),
+('Civic', 'Honda', 50.00),
+('Mustang', 'Ford', 100.00);
