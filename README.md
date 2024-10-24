@@ -3,7 +3,7 @@
 william et yvanna
 
 -chaier de charge -> william
--wire frame
--use case
--mcd
--beta corne
+-wire frame -> william
+-use case -> Yvanna
+-mcd ->  Yvanna
+-beta corne ->Yvanna
